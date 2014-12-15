@@ -21,7 +21,7 @@
     <tags:textInput name="lastName" label="Last Name" value="${user.lastName}" required="${true}"/>
     <tags:textInput name="title" label="Title" value="${user.title}"/>
     <tags:textInput name="organization" label="Organization" value="${user.organization}"/>
-    <tags:textInput name="email" label="Email" value="${user.email}" type="email" required="${false}" autocomplete="off"/>
+    <tags:textInput name="email" label="Email" value="${user.email}" type="email" required="${true}" autocomplete="off"/>
     <tags:textInput name="password" label="Password" type="password" required="${not user.idSet}" autocomplete="off"/>
     <tags:textInput name="passwordVerification" label="Password Verification" type="password" required="${not user.idSet}" autocomplete="off"/>
     <div class="form-actions">

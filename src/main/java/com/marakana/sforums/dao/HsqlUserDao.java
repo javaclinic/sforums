@@ -14,13 +14,13 @@ import com.marakana.sforums.domain.User;
 
 public class HsqlUserDao extends HsqlAbstractDatabaseDao implements UserDao {
 	
-	private static final String SQL_INSERT             = "INSERT INTO user (firstName, lastName, organization, title, email, password, created) VALUES (?, ?, ?, ?, ?, ?, ?)";
-    private static final String SQL_UPDATE             = "UPDATE user SET firstName=?, lastName=?, organization=?, title=?, email=?, password=? WHERE id=?";
+	private static final String SQL_INSERT             = "INSERT INTO user (firstName, lastName, organization, title, email, passwordDigest, created) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    private static final String SQL_UPDATE             = "UPDATE user SET firstName=?, lastName=?, organization=?, title=?, email=?, passwordDigest=? WHERE id=?";
     private static final String SQL_UPDATE_NO_PASSWORD = "UPDATE user SET firstName=?, lastName=?, organization=?, title=?, email=? WHERE id=?";
     private static final String SQL_DELETE             = "DELETE FROM user WHERE id=?";
-    private static final String SQL_SELECT_ALL         = "SELECT id, firstName, lastName, organization, title, email, password, created FROM user ORDER BY firstName, lastName";
-    private static final String SQL_SELECT_BY_ID       = "SELECT id, firstName, lastName, organization, title, email, password, created FROM user WHERE id=?";
-    private static final String SQL_SELECT_BY_EMAIL    = "SELECT id, firstName, lastName, organization, title, email, password, created FROM user WHERE email=?";
+    private static final String SQL_SELECT_ALL         = "SELECT id, firstName, lastName, organization, title, email, passwordDigest, created FROM user ORDER BY firstName, lastName";
+    private static final String SQL_SELECT_BY_ID       = "SELECT id, firstName, lastName, organization, title, email, passwordDigest, created FROM user WHERE id=?";
+    private static final String SQL_SELECT_BY_EMAIL    = "SELECT id, firstName, lastName, organization, title, email, passwordDigest, created FROM user WHERE email=?";
 
     @Override
     public void save(User user) throws DataAccessException {
@@ -51,7 +51,7 @@ public class HsqlUserDao extends HsqlAbstractDatabaseDao implements UserDao {
             stmt.setString(3, user.getOrganization());
             stmt.setString(4, user.getTitle());
             stmt.setString(5, user.getEmail());
-            stmt.setString(6, user.getPassword());
+            stmt.setString(6, user.getPasswordDigest());
             stmt.setTimestamp(7, now);
             stmt.executeUpdate();
             user.setId(super.getGeneratedKey(stmt));
@@ -61,7 +61,7 @@ public class HsqlUserDao extends HsqlAbstractDatabaseDao implements UserDao {
 
     private void update(User user, Connection connection) throws SQLException {
         // Why do we have special handling for the password? Why is this bad?
-        final boolean passwordIsSet = user.getPassword() != null;
+        final boolean passwordIsSet = user.getPasswordDigest() != null;
         final String sql = passwordIsSet ? SQL_UPDATE : SQL_UPDATE_NO_PASSWORD;
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, user.getFirstName());
@@ -70,7 +70,7 @@ public class HsqlUserDao extends HsqlAbstractDatabaseDao implements UserDao {
             stmt.setString(4, user.getTitle());
             stmt.setString(5, user.getEmail());
             if (passwordIsSet) {
-                stmt.setString(6, user.getPassword());
+                stmt.setString(6, user.getPasswordDigest());
                 stmt.setLong(7, user.getId());
             } else {
                 stmt.setLong(6, user.getId());
@@ -151,7 +151,7 @@ public class HsqlUserDao extends HsqlAbstractDatabaseDao implements UserDao {
         user.setOrganization(row.getString(4));
         user.setTitle(row.getString(5));
         user.setEmail(row.getString(6));
-        user.setPassword(row.getString(7));
+        user.setPasswordDigest(row.getString(7));
         user.setCreated(row.getTimestamp(8));
         return user;
     }
