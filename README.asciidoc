@@ -9,6 +9,5 @@ SForums is an online forum web application created to support http://marakana.co
 * Java 1.7.x
 * Maven 3.x
 * Tomcat 7.0.x
-* MySQL 5.x
-* MySQL Connector/J (JDBC Driver) 5.x
+* HSQL database and driver
 

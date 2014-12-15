@@ -2,9 +2,9 @@
 package com.marakana.sforums.dao;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -14,7 +14,7 @@ import javax.sql.DataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public abstract class AbstractDatabaseDao {
+public abstract class HsqlAbstractDatabaseDao {
 
     protected final Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -36,29 +36,18 @@ public abstract class AbstractDatabaseDao {
                 ctx.close();
             }
         } catch (NamingException e) {
-            throw new DataAccessException("Failed to lookup connection from JNDI by name: "
-                    + this.jndiName, e);
+            throw new DataAccessException("Failed to lookup connection from JNDI by name: " + this.jndiName, e);
         } catch (SQLException e) {
-            throw new DataAccessException("Failed to get connection from DataSource: "
-                    + this.jndiName, e);
+            throw new DataAccessException("Failed to get connection from DataSource: " + this.jndiName, e);
         }
     }
 
-    protected String getLastInsertIdSql() {
-        return "SELECT @@IDENTITY";
-    }
-
-    protected Long getLastInsertId(Connection connection) throws DataAccessException {
-        try (Statement stmt = connection.createStatement()) {
-            try (ResultSet rs = stmt.executeQuery(this.getLastInsertIdSql())) {
-                if (rs.next()) {
-                    return rs.getLong(1);
-                } else {
-                    throw new DataAccessException("Last insert key id is missing");
-                }
-            }
-        } catch (SQLException e) {
-            throw new DataAccessException("Failed to get last insert id", e);
+    protected Long getGeneratedKey(PreparedStatement ps)  throws DataAccessException, SQLException {
+        ResultSet generatedKeys = ps.getGeneratedKeys();
+        if ( generatedKeys.next() ) {
+            return generatedKeys.getLong(1);
+        } else {
+            throw new DataAccessException("Could not get database-generated key.");
         }
     }
 }

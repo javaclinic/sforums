@@ -11,7 +11,14 @@ import java.util.List;
 
 import com.marakana.sforums.domain.Category;
 
-public class MySqlCategoryDao extends AbstractDatabaseDao implements CategoryDao {
+public class HsqlCategoryDao extends HsqlAbstractDatabaseDao implements CategoryDao {
+	
+	private static final String SQL_INSERT         = "INSERT INTO category (name, description) VALUES (?, ?)";
+    private static final String SQL_UPDATE         = "UPDATE category SET name=?, description=? WHERE id=?";
+    private static final String SQL_DELETE         = "DELETE FROM category WHERE id=?";
+    private static final String SQL_SELECT_ALL     = "SELECT id, name, description FROM category ORDER BY name";
+    private static final String SQL_SELECT_BY_ID   = "SELECT id, name, description FROM category WHERE id=?";
+    private static final String SQL_SELECT_BY_NAME = "SELECT id, name, description FROM category WHERE name LIKE ?";
 
     public void save(Category category) throws DataAccessException {
         synchronized (category) {
@@ -32,20 +39,18 @@ public class MySqlCategoryDao extends AbstractDatabaseDao implements CategoryDao
     }
 
     private void create(Category category, Connection connection) throws SQLException {
-        final String sql = "INSERT INTO category (name, description) VALUES (?, ?)";
-        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+        try (PreparedStatement stmt = connection.prepareStatement(SQL_INSERT,Statement.RETURN_GENERATED_KEYS)) {
             stmt.setString(1, category.getName());
             stmt.setString(2, category.getDescription());
             stmt.executeUpdate();
+            category.setId(super.getGeneratedKey(stmt));
         }
-        category.setId(super.getLastInsertId(connection));
         super.logger.debug("Created {} with id {}", category, category.getId());
 
     }
 
     private void update(Category category, Connection connection) throws SQLException {
-        final String sql = "UPDATE category SET name=?, description=? WHERE id=?";
-        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+        try (PreparedStatement stmt = connection.prepareStatement(SQL_UPDATE)) {
             stmt.setString(1, category.getName());
             stmt.setString(2, category.getDescription());
             stmt.setLong(3, category.getId());
@@ -56,8 +61,7 @@ public class MySqlCategoryDao extends AbstractDatabaseDao implements CategoryDao
 
     public void delete(Category category) throws DataAccessException {
         try (Connection connection = super.getConnection()) {
-            final String sql = "DELETE FROM category WHERE id=?";
-            try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            try (PreparedStatement stmt = connection.prepareStatement(SQL_DELETE)) {
                 stmt.setLong(1, category.getId());
                 stmt.executeUpdate();
                 super.logger.debug("Deleted {}", category);
@@ -70,8 +74,7 @@ public class MySqlCategoryDao extends AbstractDatabaseDao implements CategoryDao
     public List<Category> getAll() throws DataAccessException {
         try (Connection connection = super.getConnection()) {
             try (Statement stmt = connection.createStatement()) {
-                final String sql = "SELECT id, name, description FROM category ORDER BY name";
-                try (ResultSet rs = stmt.executeQuery(sql)) {
+                try (ResultSet rs = stmt.executeQuery(SQL_SELECT_ALL)) {
                     List<Category> categoryList = new ArrayList<Category>();
                     while (rs.next()) {
                         categoryList.add(this.loadFromRow(rs));
@@ -87,8 +90,7 @@ public class MySqlCategoryDao extends AbstractDatabaseDao implements CategoryDao
 
     public Category getById(Long id) throws DataAccessException {
         try (Connection connection = super.getConnection()) {
-            final String sql = "SELECT id, name, description FROM category WHERE id=?";
-            try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            try (PreparedStatement stmt = connection.prepareStatement(SQL_SELECT_BY_ID)) {
                 stmt.setLong(1, id);
                 try (ResultSet rs = stmt.executeQuery()) {
                     Category category = rs.next() ? this.loadFromRow(rs) : null;
@@ -103,8 +105,7 @@ public class MySqlCategoryDao extends AbstractDatabaseDao implements CategoryDao
 
     public Category getByName(String name) throws DataAccessException {
         try (Connection connection = super.getConnection()) {
-            final String sql = "SELECT id, name, description FROM category WHERE name LIKE ?";
-            try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            try (PreparedStatement stmt = connection.prepareStatement(SQL_SELECT_BY_NAME)) {
                 stmt.setString(1, name);
                 try (ResultSet rs = stmt.executeQuery()) {
                     Category category = rs.next() ? this.loadFromRow(rs) : null;

@@ -64,7 +64,7 @@
 
 	<properties>
 		<final-name>sforums</final-name>
-		<webapp-directory>${CATALINA_BASE}/webapps</webapp-directory>
+		<webapp-directory>${TRAINING_TOMCAT}/webapps</webapp-directory>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<compiler-plugin-version>3.1</compiler-plugin-version>
 		<war-plugin-version>2.3</war-plugin-version>
