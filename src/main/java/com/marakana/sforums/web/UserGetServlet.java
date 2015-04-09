@@ -33,6 +33,8 @@ public class UserGetServlet extends AbstractDaoAccessServlet {
             req.setAttribute("user", user);
             String view = "/WEB-INF/jsp/userView.jsp";
             if (req.getRequestURI().contains("edit")) {
+                // remember the user as 'editUser' in the session
+                req.getSession().setAttribute("editUser", user);
                 view = "/WEB-INF/jsp/userForm.jsp";
             }
             req.getRequestDispatcher(view).forward(req, resp);
