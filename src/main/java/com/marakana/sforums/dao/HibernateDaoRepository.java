@@ -1,11 +1,11 @@
 
 package com.marakana.sforums.dao;
 
-public class MySqlDaoRepository implements DaoRepository {
+public class HibernateDaoRepository implements DaoRepository {
 
-    private final CategoryDao categoryDao = new MySqlCategoryDao();
+    private CategoryDao categoryDao = new HibernateCategoryDao();
 
-    private final UserDao userDao = new MySqlUserDao();
+    private UserDao userDao = new HibernateUserDao();
 
     @Override
     public CategoryDao getCategoryDao() {
