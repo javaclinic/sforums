@@ -1,14 +1,26 @@
 
 package com.marakana.sforums.domain;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Lob;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
+@Entity
+@Table(name = "category")
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Category extends IdentifiableEntity {
 
-    private static final long serialVersionUID = 124961586053250629L;
+    private static final long serialVersionUID = 8723299921811314495L;
 
     private String name;
 
     private String description;
 
+    @Column(length = 64, unique = true, nullable = false)
     public String getName() {
         return this.name;
     }
@@ -17,6 +29,7 @@ public class Category extends IdentifiableEntity {
         this.name = name;
     }
 
+    @Lob
     public String getDescription() {
         return this.description;
     }
@@ -49,4 +62,5 @@ public class Category extends IdentifiableEntity {
     public String toString() {
         return this.getName();
     }
+
 }
