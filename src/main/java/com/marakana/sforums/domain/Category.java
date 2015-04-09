@@ -49,5 +49,4 @@ public class Category extends IdentifiableEntity {
     public String toString() {
         return this.getName();
     }
-
 }
