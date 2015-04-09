@@ -21,3 +21,6 @@ CREATE TABLE IF NOT EXISTS user (
 
 ALTER TABLE user CHANGE COLUMN password passwordDigest VARCHAR(32);
 UPDATE user SET passwordDigest=MD5(passwordDigest) WHERE LENGTH(passwordDigest) != 32;
+
+ALTER TABLE user ADD COLUMN version INT(11) NOT NULL DEFAULT 0;
+ALTER TABLE category ADD COLUMN version INT(11) NOT NULL DEFAULT 0;

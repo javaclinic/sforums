@@ -8,13 +8,16 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Transient;
+import javax.persistence.Version;
 
 @MappedSuperclass
 public abstract class IdentifiableEntity implements Serializable {
 
-    private static final long serialVersionUID = -1859673334768297518L;
+    private static final long serialVersionUID = -8596273884122167072L;
 
     private Long id;
+
+    private int version = 0;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -29,6 +32,15 @@ public abstract class IdentifiableEntity implements Serializable {
     @Transient
     public boolean isIdSet() {
         return this.id != null;
+    }
+
+    @Version
+    public int getVersion() {
+        return version;
+    }
+
+    public void setVersion(int version) {
+        this.version = version;
     }
 
     @Override
