@@ -6,7 +6,7 @@
 	<version>1.0-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<name>SForums Application</name>
-	<url>http://github.com/marakana/sforums</url>
+	<url>http://github.com/thenewcircle/sforums</url>
 	<description>
 	  Simple Spring and Hibernate Web Application used in NewCircle Training Classes
 	</description>
@@ -77,6 +77,8 @@
 		<junit-version>4.10</junit-version>
 		<slf4j-version>1.7.7</slf4j-version>
 		<logback-classic-version>1.1.2</logback-classic-version>
+		<hibernate-version>4.3.5.Final</hibernate-version>
+		<ehcache-version>2.6.5</ehcache-version>
 	</properties>
 
 	<build>
@@ -170,6 +172,23 @@
 			<groupId>ch.qos.logback</groupId>
 			<artifactId>logback-classic</artifactId>
 			<version>${logback-classic-version}</version>
+			<scope>runtime</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>${hibernate-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-ehcache</artifactId>
+			<version>${hibernate-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>net.sf.ehcache</groupId>
+			<artifactId>ehcache-core</artifactId>
+			<version>${ehcache-version}</version>
 			<scope>runtime</scope>
 		</dependency>
 
