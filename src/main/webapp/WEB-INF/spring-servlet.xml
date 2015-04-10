@@ -26,4 +26,32 @@
 
     <mvc:view-controller path="/home.html" view-name="home" />
 
+    <bean name="/categories.html" class="com.marakana.sforums.web.IdentifiableEntityListController">
+        <property name="dao" ref="categoryDao" />
+        <property name="viewName" value="categoryList" />
+    </bean>
+
+    <bean name="/category.html" class="com.marakana.sforums.web.IdentifiableEntityGetController">
+        <property name="dao" ref="categoryDao" />
+        <property name="viewName" value="categoryView" />
+    </bean>
+
+    <bean name="/category_delete.html" class="com.marakana.sforums.web.IdentifiableEntityDeleteController">
+        <property name="dao" ref="categoryDao" />
+    </bean>
+
+    <bean name="/users.html" class="com.marakana.sforums.web.IdentifiableEntityListController">
+        <property name="dao" ref="userDao" />
+        <property name="viewName" value="userList" />
+    </bean>
+
+    <bean name="/user.html" class="com.marakana.sforums.web.IdentifiableEntityGetController">
+        <property name="dao" ref="userDao" />
+        <property name="viewName" value="userView" />
+    </bean>
+
+    <bean name="/user_delete.html" class="com.marakana.sforums.web.IdentifiableEntityDeleteController">
+        <property name="dao" ref="userDao" />
+    </bean>
+
 </beans>
