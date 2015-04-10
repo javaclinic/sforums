@@ -26,4 +26,6 @@
 
     <mvc:view-controller path="/home.html" view-name="home" />
 
+    <bean name="/HelloWorld.html" class="com.marakana.sforums.web.HelloWorldController" />
+
 </beans>
