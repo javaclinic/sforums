@@ -26,4 +26,12 @@
 
     <mvc:view-controller path="/home.html" view-name="home" />
 
+    <bean name="/categories.html" class="com.marakana.sforums.web.CategoryListController" />
+    <bean name="/category.html" class="com.marakana.sforums.web.CategoryGetController" />
+    <bean name="/category_delete.html" class="com.marakana.sforums.web.CategoryDeleteController" />
+
+    <bean name="/users.html" class="com.marakana.sforums.web.UserListController" />
+    <bean name="/user.html" class="com.marakana.sforums.web.UserGetController" />
+    <bean name="/user_delete.html" class="com.marakana.sforums.web.UserDeleteController" />
+
 </beans>
