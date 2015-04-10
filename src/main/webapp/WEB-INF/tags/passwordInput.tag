@@ -12,10 +12,10 @@
 <%@ taglib prefix="f" uri="/WEB-INF/functions.tld"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
-<tags:formInput path="${pageScope.path}" label="${pageScope.label}" required="${pageScope.requried}">
-  <form:input
+<tags:formInput path="${pageScope.path}" label="${pageScope.label}" required="${pageScope.required}">
+  <form:password
     path="${pageScope.path}"
-    cssClass="${empty pageScope.cssClass ? 'input-xlarge' : pageScope.cssClass }"
+    cssClass="${empty pageScope.cssClass ? 'input-xlarge' : pageScope.cssClass}"
     autocomplete="${pageScope.autocomplete}"
   />
 </tags:formInput>
