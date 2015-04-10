@@ -28,4 +28,8 @@
 
     <bean name="/HelloWorld.html" class="com.marakana.sforums.web.HelloWorldController" />
 
+    <bean name="/HelloWorld2.html" class="com.marakana.sforums.web.HelloWorldController2">
+        <property name="viewName" value="helloWorld" />
+    </bean>
+
 </beans>
