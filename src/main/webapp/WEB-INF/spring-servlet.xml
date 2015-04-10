@@ -54,4 +54,13 @@
         <property name="dao" ref="userDao" />
     </bean>
 
+    <bean id="exceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+        <property name="exceptionMappings">
+            <props>
+                <prop key="org.springframework.dao.DataAccessException">dataAccessError</prop>
+                <prop key="org.springframework.transaction.TransactionException">dataAccessError</prop>
+            </props>
+        </property>
+    </bean>
+
 </beans>

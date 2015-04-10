@@ -12,6 +12,7 @@
     <tags:alert type="success" title="Success!" message="Saved category." />
   </c:if>
   <form:form action="category_form.html" commandName="category" cssClass="form-horizontal">
+    <tags:showFormErrors name="category" />
     <tags:textInput path="name" label="Name" required="${true}" />
     <tags:textAreaInput path="description" label="Description" required="${false}" />
     <div class="form-actions">
