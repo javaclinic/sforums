@@ -3,6 +3,7 @@ package com.marakana.sforums.web;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import javax.validation.Valid;
 import javax.xml.bind.DatatypeConverter;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +39,7 @@ public class UserAndPasswordFormController {
     }
 
     @RequestMapping(method=RequestMethod.POST)
-    public String processSubmit(@ModelAttribute("userAndPassword") UserAndPassword userAndPassword, BindingResult result, SessionStatus status) {
+    public String processSubmit(@ModelAttribute("userAndPassword") @Valid UserAndPassword userAndPassword, BindingResult result, SessionStatus status) {
         if ( !result.hasErrors() ) {
             User user = userAndPassword.getUser();
             if ( userAndPassword.isPasswordVerified() ) {
