@@ -27,3 +27,10 @@ ALTER TABLE category ADD COLUMN version INT(11) NOT NULL DEFAULT 0;
 
 ALTER TABLE user ADD COLUMN admin BIT(1) NOT NULL DEFAULT b'0';
 ALTER TABLE user ADD COLUMN enabled BIT(1) NOT NULL DEFAULT b'1';
+
+ALTER TABLE user CHANGE passwordDigest passwordDigest VARCHAR(80) NOT NULL;
+-- bootstrap users with password "abc123", secret "6d6172616b616e61"
+UPDATE user SET passwordDigest="aee50159c6557e006395b81571ae02e393da521dd38bb8a89c65b786f16d2f805a034e5ae4e93dc4";
+-- bootstrap users with admin and enabled
+UPDATE user SET enabled=TRUE, admin=TRUE;
+
