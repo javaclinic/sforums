@@ -36,7 +36,7 @@
         <property name="hibernateProperties">
             <props>
                 <prop key="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</prop>
-                <prop key="hibernate.hbm2ddl.auto">update</prop>
+                <prop key="hibernate.hbm2ddl.auto">validate</prop>
                 <prop key="hibernate.current_session_context_class">org.springframework.orm.hibernate4.SpringSessionContext</prop>
                 <prop key="hibernate.show_sql">true</prop>
                 <prop key="hibernate.format_sql">true</prop>
@@ -60,6 +60,9 @@
 
     <bean id="categoryDao" class="com.marakana.sforums.dao.HibernateCategoryDao" />
     <bean id="userDao" class="com.marakana.sforums.dao.HibernateUserDao" />
+    <bean id="forumDao" class="com.marakana.sforums.dao.HibernateForumDao"/>
+    <bean id="topicDao" class="com.marakana.sforums.dao.HibernateTopicDao"/>
+    <bean id="replyDao" class="com.marakana.sforums.dao.HibernateReplyDao"/>
 
     <bean id="userStoreService" class="com.marakana.sforums.service.DefaultUserStoreService" />
     <bean id="userContextService" class="com.marakana.sforums.service.DefaultUserContextService"/>

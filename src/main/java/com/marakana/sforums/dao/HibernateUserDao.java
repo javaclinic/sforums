@@ -8,9 +8,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.marakana.sforums.domain.User;
 
-public class HibernateUserDao extends AbstractHibernateDao<User> implements UserDao {
+public class HibernateUserDao extends AbstractTimestampedEntityHibernateDao<User> implements UserDao {
 
-	@Transactional(readOnly = true)
+    @Transactional(readOnly = true)
     public List<User> getAll() throws DataAccessException {
         return super.findAll("from User order by firstName, lastName");
     }
@@ -19,13 +19,6 @@ public class HibernateUserDao extends AbstractHibernateDao<User> implements User
     @Transactional(readOnly = true)
     public User getByEmail(String email) throws DataAccessException {
         return (User) super.findOne("from User where email=?", email);
-    }
-
-    @Override
-    @Transactional(readOnly = false)
-    public void save(User user) throws DataAccessException {
-        user.markCreated();
-        super.save(user);
     }
 
 }
