@@ -45,6 +45,7 @@ public class Category extends IdentifiableEntity {
     }
 
     @Lob
+    @Column(columnDefinition = "TEXT")
     public String getDescription() {
         return this.description;
     }
