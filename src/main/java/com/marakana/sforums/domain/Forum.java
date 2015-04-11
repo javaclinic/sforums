@@ -23,6 +23,8 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
@@ -90,6 +92,7 @@ public class Forum extends IdentifiableEntity {
 
     @OneToMany(mappedBy = "forum", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     @OrderBy("created")
+    @LazyCollection(LazyCollectionOption.EXTRA)
     public List<Topic> getTopics() {
         return topics;
     }

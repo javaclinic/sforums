@@ -67,4 +67,14 @@
     <bean id="userStoreService" class="com.marakana.sforums.service.DefaultUserStoreService" />
     <bean id="userContextService" class="com.marakana.sforums.service.DefaultUserContextService"/>
 
+    <bean id="jmxExporter" class="org.springframework.jmx.export.MBeanExporter">
+        <property name="beans">
+            <map>
+                <entry key="Hibernate:type=statistics">
+                    <bean id="statisticsBean" class="com.marakana.sforums.hibernate.HibernateStatisticsFactoryBean" />
+                </entry>
+            </map>
+        </property>
+    </bean>
+
 </beans>
