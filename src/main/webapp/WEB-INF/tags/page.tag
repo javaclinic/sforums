@@ -40,11 +40,13 @@
                 <li class="${nav eq 'users'? 'active' : ''}"><a href="<c:url value='/users.html'/>">List Users</a></li>
               <security:authorize ifNotGranted="ROLE_USER">
                 <li><a href="<c:url value='/login.html'/>">Login</a></li>
+                <li><a href="<c:url value='/user_register.html'/>">Register</a></li>
               </security:authorize>
               <security:authorize ifAllGranted="ROLE_USER">
                 <li class="dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown">${fn:escapeXml(authUser.name)} <b class="caret"></b></a>
                   <ul class="dropdown-menu">
+                    <li><a href="<c:url value='/user_profile.html'/>">My Profile</a></li>
                     <li><a href="<c:url value='/logout.html'/>">Logout</a></li>
                   </ul>
                 </li>
