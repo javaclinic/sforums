@@ -1,47 +1,68 @@
-<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:noNamespaceSchemaLocation="http://ehcache.org/ehcache.xsd">
+<ehcache
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="http://ehcache.org/ehcache.xsd"
+>
 
-	<diskStore path="java.io.tmpdir"/>
+    <diskStore path="java.io.tmpdir" />
 
-	<defaultCache
-		maxElementsInMemory="10000"
-		eternal="false"
-		timeToIdleSeconds="120"
-		timeToLiveSeconds="120"
-		overflowToDisk="true"
-	/>
+    <defaultCache
+        maxElementsInMemory="10000"
+        eternal="false"
+        timeToIdleSeconds="120"
+        timeToLiveSeconds="120"
+        overflowToDisk="true" />
 
-	<cache
-		name="org.hibernate.cache.internal.StandardQueryCache"
-		maxElementsInMemory="500"
-		eternal="false"
-		timeToLiveSeconds="120"
-		overflowToDisk="true"
-	/>
+    <cache
+        name="org.hibernate.cache.internal.StandardQueryCache"
+        maxElementsInMemory="500"
+        eternal="false"
+        timeToLiveSeconds="120"
+        overflowToDisk="true" />
 
-	<cache
-		name="org.hibernate.cache.spi.UpdateTimestampsCache"
-		maxElementsInMemory="5000"
-		eternal="true"
-		overflowToDisk="true"
-	/>
+    <cache
+        name="org.hibernate.cache.spi.UpdateTimestampsCache"
+        maxElementsInMemory="5000"
+        eternal="true"
+        overflowToDisk="true" />
 
-	<cache
-		name="com.marakana.sforums.domain.Category"
-		maxElementsInMemory="100"
-		eternal="false"
-		timeToIdleSeconds="300"
-		timeToLiveSeconds="600"
-		overflowToDisk="true"
-	/>
+    <cache
+        name="com.marakana.sforums.domain.Category"
+        maxElementsInMemory="100"
+        eternal="false"
+        timeToIdleSeconds="300"
+        timeToLiveSeconds="600"
+        overflowToDisk="true" />
 
-	<cache
-		name="com.marakana.sforums.domain.User"
-		maxElementsInMemory="100"
-		eternal="false"
-		timeToIdleSeconds="300"
-		timeToLiveSeconds="600"
-		overflowToDisk="true"
-	/>
+    <cache
+        name="com.marakana.sforums.domain.User"
+        maxElementsInMemory="100"
+        eternal="false"
+        timeToIdleSeconds="300"
+        timeToLiveSeconds="600"
+        overflowToDisk="true" />
+
+    <cache
+        name="com.marakana.sforums.domain.Forum"
+        maxElementsInMemory="50"
+        eternal="false"
+        timeToIdleSeconds="600"
+        timeToLiveSeconds="1200"
+        overflowToDisk="true" />
+
+    <cache
+        name="com.marakana.sforums.domain.Topic"
+        maxElementsInMemory="200"
+        eternal="false"
+        timeToIdleSeconds="600"
+        timeToLiveSeconds="1200"
+        overflowToDisk="true" />
+
+    <cache
+        name="com.marakana.sforums.domain.Reply"
+        maxElementsInMemory="1000"
+        eternal="false"
+        timeToIdleSeconds="600"
+        timeToLiveSeconds="1200"
+        overflowToDisk="true" />
 
 </ehcache>

@@ -27,6 +27,10 @@
             <list>
                 <value>com.marakana.sforums.domain.Category</value>
                 <value>com.marakana.sforums.domain.User</value>
+                <value>com.marakana.sforums.domain.Forum</value>
+                <value>com.marakana.sforums.domain.Post</value>
+                <value>com.marakana.sforums.domain.Topic</value>
+                <value>com.marakana.sforums.domain.Reply</value>
             </list>
         </property>
         <property name="hibernateProperties">
