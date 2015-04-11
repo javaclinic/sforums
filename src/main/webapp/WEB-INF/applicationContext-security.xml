@@ -99,4 +99,6 @@
         <beans:constructor-arg value="6d6172616b616e61" />
     </beans:bean>
 
+    <global-method-security secured-annotations="enabled" />
+
 </beans:beans>
