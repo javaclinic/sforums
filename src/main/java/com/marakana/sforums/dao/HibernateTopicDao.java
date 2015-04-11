@@ -26,4 +26,14 @@ public class HibernateTopicDao extends AbstractTimestampedEntityHibernateDao<Top
     public List<Topic> getAll() throws DataAccessException {
         return super.findAll(super.getSession().getNamedQuery("all-topics"));
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Topic getById(Long id) throws DataAccessException {
+        return super.findOne(
+                super
+                    .getNamedQuery("topic-by-id-fetch-all")
+                    .setParameter("id", id)
+        );
+    }
 }
