@@ -1,10 +1,17 @@
 package com.marakana.sforums.domain;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.QueryHint;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -34,11 +41,13 @@ import org.hibernate.validator.constraints.NotEmpty;
 })
 public class Topic extends Post {
 
-    private static final long serialVersionUID = -1856656760317062788L;
+    private static final long serialVersionUID = -3508636277961221248L;
 
     private Forum forum;
 
     private String title;
+
+    private List<Reply> replies = new ArrayList<>();
 
     @NotNull
     @ManyToOne(optional = false)
@@ -60,5 +69,15 @@ public class Topic extends Post {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    @OneToMany(mappedBy = "topic", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @OrderBy("created")
+    public List<Reply> getReplies() {
+        return replies;
+    }
+
+    public void setReplies(List<Reply> replies) {
+        this.replies = replies;
     }
 }

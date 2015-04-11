@@ -1,5 +1,9 @@
 package com.marakana.sforums.domain;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -8,6 +12,8 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.QueryHint;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -39,13 +45,15 @@ import org.hibernate.validator.constraints.NotEmpty;
 })
 public class Forum extends IdentifiableEntity {
 
-    private static final long serialVersionUID = -6095547779017304536L;
+    private static final long serialVersionUID = 2006103535884403509L;
 
     private Category category;
 
     private String name;
 
     private String description;
+
+    private List<Topic> topics = new ArrayList<>();
 
     @NotNull
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
@@ -77,6 +85,16 @@ public class Forum extends IdentifiableEntity {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @OneToMany(mappedBy = "forum", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @OrderBy("created")
+    public List<Topic> getTopics() {
+        return topics;
+    }
+
+    public void setTopics(List<Topic> topics) {
+        this.topics = topics;
     }
 
     @Override
