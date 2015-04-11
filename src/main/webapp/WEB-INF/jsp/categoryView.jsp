@@ -3,8 +3,11 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags"%>
 <%@ taglib prefix="f" uri="/WEB-INF/functions.tld"%>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
+
 <tags:page title="${category.name}" nav="categories">
   <p>${f:convertToHtmlLineBreaks(category.description)}</p>
+  <security:authorize ifAllGranted="ROLE_ADMIN">
   <c:url var="editUrl" value="/category_form.html">
     <c:param name="id" value="${category.id}" />
   </c:url>
@@ -21,4 +24,5 @@
     	executeDeleteAndRedirect(".deleteUrl", "${categoriesUrl}");
     });
   </script>
+  </security:authorize>
 </tags:page>

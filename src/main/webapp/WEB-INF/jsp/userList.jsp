@@ -3,6 +3,8 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags"%>
 <%@ taglib prefix="f" uri="/WEB-INF/functions.tld"%>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
+
 <tags:page title="Users" nav="users">
   <c:choose>
     <c:when test="${fn:length(userList) == 0}">
@@ -18,7 +20,11 @@
             <th>Organization</th>
             <th>Email</th>
             <th>Since</th>
+            <security:authorize ifAllGranted="ROLE_ADMIN">
+            <th>Enabled</th>
+            <th>Admin</th>
             <th></th>
+            </security:authorize>
           </tr>
         </thead>
         <tbody>
@@ -45,10 +51,14 @@
               <td>
                 <fmt:formatDate value="${user.created}" pattern="MMM yyyy" />
               </td>
+              <security:authorize ifAllGranted="ROLE_ADMIN">
+              <td><c:if test="${user.enabled}"><i class="icon-ok"></i></c:if></td>
+              <td><c:if test="${user.admin}"><i class="icon-ok"></i></c:if></td>
               <td>
                 <a class="editUrl" href="${editUrl}"><i class="icon-pencil"></i></a>
                 <a class="deleteUrl" href="${deleteUrl}"><i class="icon-trash"></i></a>
               </td>
+              </security:authorize>
             </tr>
           </c:forEach>
         </tbody>

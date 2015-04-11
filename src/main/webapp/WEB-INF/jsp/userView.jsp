@@ -3,6 +3,8 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags"%>
 <%@ taglib prefix="f" uri="/WEB-INF/functions.tld"%>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
+
 <tags:page title="${fn:escapeXml(user.name)}" nav="users">
   <c:if test="${not empty user.title or not empty user.organization}">
     <p>
@@ -19,6 +21,7 @@
     <p><a href="mailto:${email}">${email}</a></p>
   </c:if>
   <p>Since <fmt:formatDate value="${user.created}" pattern="MMMMM d, yyyy hh:mma" /></p>
+  <security:authorize ifAllGranted="ROLE_ADMIN">
   <c:url var="editUrl" value="/user_form.html">
     <c:param name="id" value="${user.id}" />
   </c:url>
@@ -35,4 +38,5 @@
         executeDeleteAndRedirect(".deleteUrl", "${usersUrl}");
     });
   </script>
+  </security:authorize>
 </tags:page>

@@ -20,6 +20,8 @@
       <tags:textInput path="title" label="Title" required="${false}" />
       <tags:textInput path="organization" label="Organization" required="${false}" />
       <tags:textInput path="email" label="Email" required="${false}" autocomplete="off" />
+      <tags:booleanInput path="enabled" label="Enabled" />
+      <tags:booleanInput path="admin" label="Admin" />
     </spring:nestedPath>
     <c:set var="passwordRequired" value="${not userAndPassword.user.idSet }" />
     <tags:passwordInput path="password" label="Password" autocomplete="off" required="${passwordRequired}" />
