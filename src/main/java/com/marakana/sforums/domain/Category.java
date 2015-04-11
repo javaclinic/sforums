@@ -9,8 +9,11 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Lob;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
+import javax.persistence.QueryHint;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -24,6 +27,14 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Entity
 @Table(name = "category")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+@NamedQueries({
+    @NamedQuery(
+            name = "all-categories",
+            query = "from Category order by name",
+            hints = { @QueryHint(name = "org.hibernate.cacheable", value = "true") }
+    )
+})
+
 public class Category extends IdentifiableEntity {
 
     private static final long serialVersionUID = 3626995195869357203L;

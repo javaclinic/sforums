@@ -20,7 +20,7 @@ public class HibernateCategoryDao extends AbstractHibernateDao<Category> impleme
     @Override
     @Transactional(readOnly = true)
     public List<Category> getAll() throws DataAccessException {
-        return super.findAll("from Category order by name");
+        return super.findAll(super.getNamedQuery("all-categories"));
     }
 
     @Override
