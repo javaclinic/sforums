@@ -35,6 +35,10 @@
               </security:authorize>
                 <li class="${nav eq 'categories'? 'active' : ''}"><a href="<c:url value='/categories.html'/>">List Categories</a></li>
               <security:authorize ifAllGranted="ROLE_ADMIN">
+                <li class="${nav eq 'add_forum'? 'active' : ''}"><a href="<c:url value='/forum_form.html'/>">Add Forum</a></li>
+              </security:authorize>
+                <li class="${nav eq 'forums'? 'active' : ''}"><a href="<c:url value='/forums.html'/>">List Forums</a></li>
+              <security:authorize ifAllGranted="ROLE_ADMIN">
                 <li class="${nav eq 'add_user'? 'active' : ''}"><a href="<c:url value='/user_form.html'/>">Add User</a></li>
               </security:authorize>
                 <li class="${nav eq 'users'? 'active' : ''}"><a href="<c:url value='/users.html'/>">List Users</a></li>

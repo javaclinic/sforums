@@ -20,6 +20,7 @@
             <th>Organization</th>
             <th>Email</th>
             <th>Since</th>
+            <th class="number">Posts</th>
             <security:authorize ifAllGranted="ROLE_ADMIN">
             <th>Enabled</th>
             <th>Admin</th>
@@ -51,6 +52,7 @@
               <td>
                 <fmt:formatDate value="${user.created}" pattern="MMM yyyy" />
               </td>
+              <td class="number">${fn:length(user.posts)}</td>
               <security:authorize ifAllGranted="ROLE_ADMIN">
               <td><c:if test="${user.enabled}"><i class="icon-ok"></i></c:if></td>
               <td><c:if test="${user.admin}"><i class="icon-ok"></i></c:if></td>
@@ -65,9 +67,11 @@
       </table>
     </c:otherwise>
   </c:choose>
+  <security:authorize ifAllGranted="ROLE_ADMIN">
   <script type="text/javascript">
     $(document).ready(function() {
       executeDeleteAndRemoveContainer(".deleteUrl", "tr");
     });
   </script>
+  </security:authorize>
 </tags:page>

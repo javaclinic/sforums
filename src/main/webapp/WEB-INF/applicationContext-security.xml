@@ -19,25 +19,19 @@
         <access-denied-handler error-page="/access_denied.html" />
 
         <intercept-url
-            pattern="^/(user|category)_form\.html.*$"
+            pattern="^/(user|category|forum)_form\.html.*$"
             requires-channel="https"
             access="ROLE_ADMIN"
         />
 
         <intercept-url
-            pattern="^/(user|category)_delete\.html.*$"
+            pattern="^/(topic|reply)_form\.html.*$"
+            access="ROLE_USER"
+        />
+
+        <intercept-url
+            pattern="^/(user|category|forum|topic|reply)_delete\.html.*$"
             access="ROLE_ADMIN"
-        />
-
-        <intercept-url
-            pattern="^/login\.html.*$"
-            requires-channel="https"
-            method="POST"
-        />
-
-        <intercept-url
-            pattern="^/.+\.html.*$"
-            requires-channel="http"
         />
 
         <intercept-url
@@ -50,6 +44,17 @@
             pattern="^/user_profile\.html.*$"
             requires-channel="https"
             access="ROLE_USER"
+        />
+
+        <intercept-url
+            pattern="^/login\.html.*$"
+            requires-channel="https"
+            method="POST"
+        />
+
+        <intercept-url
+            pattern="^/.+\.html.*$"
+            requires-channel="http"
         />
 
         <form-login

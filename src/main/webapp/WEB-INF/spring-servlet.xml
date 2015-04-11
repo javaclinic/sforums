@@ -60,6 +60,34 @@
         <property name="dao" ref="userDao" />
     </bean>
 
+    <bean name="/forums.html" class="com.marakana.sforums.web.IdentifiableEntityListController">
+        <property name="dao" ref="forumDao" />
+        <property name="viewName" value="forumList" />
+    </bean>
+
+    <bean name="/forum.html" class="com.marakana.sforums.web.IdentifiableEntityGetController">
+        <property name="dao" ref="forumDao" />
+        <property name="viewName" value="forumView" />
+    </bean>
+
+    <bean name="/forum_delete.html" class="com.marakana.sforums.web.IdentifiableEntityDeleteController">
+        <property name="dao" ref="forumDao" />
+    </bean>
+
+    <bean name="/topic.html" class="com.marakana.sforums.web.IdentifiableEntityGetController">
+        <property name="dao" ref="topicDao" />
+        <property name="viewName" value="topicView" />
+    </bean>
+
+    <bean name="/topic_delete.html" class="com.marakana.sforums.web.IdentifiableEntityDeleteController">
+        <property name="dao" ref="topicDao" />
+    </bean>
+
+    <bean name="/reply_delete.html" class="com.marakana.sforums.web.IdentifiableEntityDeleteController">
+        <property name="dao" ref="replyDao" />
+    </bean>
+
+
     <bean id="exceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
         <property name="exceptionMappings">
             <props>

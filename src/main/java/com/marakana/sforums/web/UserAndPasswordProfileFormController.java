@@ -38,6 +38,18 @@ public class UserAndPasswordProfileFormController {
         this.userStoreService = userStoreService;
     }
 
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+        binder.setAllowedFields(new String[] {
+                "user.email",
+                "user.name.*",
+                "user.organization",
+                "user.title",
+                "password",
+                "passwordVerification"
+        });
+    }
+
     @RequestMapping(method=RequestMethod.GET)
     public ModelAndView setupForm() {
         User user = this.userContextService.getUserFromContext();
@@ -48,11 +60,6 @@ public class UserAndPasswordProfileFormController {
             logger.debug("Setting up form for {}", user);
         }
         return new ModelAndView("userForm").addObject(new UserAndPassword(user)).addObject("profile", Boolean.TRUE);
-    }
-
-    @InitBinder
-    public void initBinder(WebDataBinder binder) {
-        binder.setDisallowedFields("user.enabled", "user.admin", "user.passwordDigest");
     }
 
     @RequestMapping(method=RequestMethod.POST)
