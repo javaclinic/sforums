@@ -19,8 +19,13 @@
         <access-denied-handler error-page="/access_denied.html" />
 
         <intercept-url
-            pattern="^/(user|category)_(form|delete)\.html.*$"
+            pattern="^/(user|category)_form\.html.*$"
             requires-channel="https"
+            access="ROLE_ADMIN"
+        />
+
+        <intercept-url
+            pattern="^/(user|category)_delete\.html.*$"
             access="ROLE_ADMIN"
         />
 

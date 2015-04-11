@@ -21,5 +21,4 @@ public class HibernateCategoryDao extends AbstractHibernateDao<Category> impleme
     public List<Category> getAll() throws DataAccessException {
         return super.findAll("from Category order by name");
     }
-
 }
