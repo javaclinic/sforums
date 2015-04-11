@@ -15,8 +15,8 @@
   <form:form commandName="userAndPassword" cssClass="form-horizontal">
     <tags:showFormErrors name="userAndPassword" />
     <spring:nestedPath path="user">
-      <tags:textInput path="firstName" label="First Name" required="${false}" />
-      <tags:textInput path="lastName" label="Last Name" required="${false}" />
+      <tags:textInput path="name.first" label="First Name" required="${true}" />
+      <tags:textInput path="name.last" label="Last Name" required="${true}" />
       <tags:textInput path="title" label="Title" required="${false}" />
       <tags:textInput path="organization" label="Organization" required="${false}" />
       <tags:textInput path="email" label="Email" required="${false}" autocomplete="off" />
